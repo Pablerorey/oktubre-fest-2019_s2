@@ -1,5 +1,6 @@
 import jarras.*
 import marcas.*
+import carpas.*
 
 class Persona {
 	const property jarras = []
@@ -18,6 +19,21 @@ class Persona {
 	method totalDeAlcohol() {
 		return jarras.sum({j=>j.contenidoDeAlcohol()})
 	}
+	
+    method quiereEntrar(carpa) {
+		return self.leGusta(carpa.marcaQueVende()) and carpa.tieneBanda() == self.musicaTradicional()
+	}
+	
+	method puedeEntrarA(carpa) {
+		return carpa.dejaIngresarA(self)
+	}
+	
+	method ingresarA(carpa) {
+		if (self.puedeEntrarA(carpa)) {
+			carpa.ingresarPersona(self)
+		}
+		else { self.error("TOCA DE ACA DOBLADO SI NO QUERES MORIR")	}
+	}	
 	
 	method leGusta(marca)
 }
@@ -40,6 +56,10 @@ class Aleman inherits Persona {
 	
 	override method leGusta(marca) {
 		return true
+	}
+	
+	override method quiereEntrar(carpa) {
+		return super(carpa) and carpa.personas().size().even()
 	}
 }
 
