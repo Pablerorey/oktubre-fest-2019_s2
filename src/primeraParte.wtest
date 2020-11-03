@@ -1,0 +1,36 @@
+import marcas.*
+import jarras.*
+import personas.*
+
+describe "primera parte" {
+
+	const hofbrau = new Roja(lupulo = 2)
+	const corona = new Rubia(graduacion = 8)
+	const corona2 = new Rubia(graduacion = 10)
+	const jarra1 = new Jarra(capacidad = 0.5, marca = hofbrau)
+	const jarra2 = new Jarra(capacidad = 0.5, marca = corona)
+	const jarra3 = new Jarra(capacidad = 0.5, marca = corona2)
+	const persona = new Checo(peso = 50 , nivelDeAguante = 6.4) 
+	
+fixture {
+	persona.comprarJarras([jarra1, jarra2, jarra3])
+}
+
+test "contnidoDeAlcohol"{
+	assert.equals(0.04, jarra1.contenidoDeAlcohol())
+	assert.equals(0.04, jarra2.contenidoDeAlcohol())
+}
+
+
+test "toal de alcohol" {
+	assert.equals(0.13, persona.totalDeAlcohol())
+}
+
+test "esta ebria" {
+	assert.that(persona.estaEbria())
+}
+
+test "le gusta" {
+	assert.that(persona.leGusta(corona2))
+}
+}
